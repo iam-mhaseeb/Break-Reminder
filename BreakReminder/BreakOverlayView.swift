@@ -9,65 +9,70 @@ struct BreakOverlayView: View {
     @State private var timer: Timer? = nil
     
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.7)
-                .ignoresSafeArea()
-                .edgesIgnoringSafeArea(.all)
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.opacity(0.7)
+                    .ignoresSafeArea(.all)
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(width: geometry.size.width, height: geometry.size.height)
 
-            VStack(spacing: 30) {
-                Text("Time to take a break 👀")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(.white)
-                
-                Text("Look away from your screen for a while")
-                    .font(.headline)
-                    .foregroundColor(.white.opacity(0.9))
-                
-                // Countdown timer display
-                VStack(spacing: 5) {
-                    Text("\(formatTime(remainingSeconds))")
-                        .font(.system(size: 48, weight: .bold, design: .monospaced))
+                VStack(spacing: 30) {
+                    Text("Time to take a break 👀")
+                        .font(.system(size: 32, weight: .bold))
                         .foregroundColor(.white)
                     
-                    Text("Break will end automatically")
-                        .font(.subheadline)
-                        .foregroundColor(.white.opacity(0.8))
-                }
-                .padding(.vertical, 10)
-                
-                // Progress bar
-                ProgressBar(progress: Double(60 - remainingSeconds) / 60.0)
-                    .frame(height: 8)
-                    .padding(.horizontal, 40)
-                
-                HStack(spacing: 20) {
-                    // Snooze button
-                    CustomButton(
-                        title: "Snooze 5 min",
-                        backgroundColor: Color.blue.opacity(0.8),
-                        action: {
-                            stopTimer()
-                            reminder.snooze()
-                            window.close()
-                        }
-                    )
-                    .help("Snooze for 5 minutes")
+                    Text("Look away from your screen for a while")
+                        .font(.headline)
+                        .foregroundColor(.white.opacity(0.9))
+                    
+                    // Countdown timer display
+                    VStack(spacing: 5) {
+                        Text("\(formatTime(remainingSeconds))")
+                            .font(.system(size: 48, weight: .bold, design: .monospaced))
+                            .foregroundColor(.white)
+                        
+                        Text("Break will end automatically")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    .padding(.vertical, 10)
+                    
+                    // Progress bar
+                    ProgressBar(progress: Double(60 - remainingSeconds) / 60.0)
+                        .frame(height: 8)
+                        .padding(.horizontal, 40)
+                    
+                    HStack(spacing: 20) {
+                        // Snooze button
+                        CustomButton(
+                            title: "Snooze 5 min",
+                            backgroundColor: Color.blue.opacity(0.8),
+                            action: {
+                                stopTimer()
+                                reminder.snooze()
+                                window.close()
+                            }
+                        )
+                        .help("Snooze for 5 minutes")
 
-                    // Skip button
-                    CustomButton(
-                        title: "Skip",
-                        backgroundColor: Color.gray.opacity(0.8),
-                        action: {
-                            stopTimer()
-                            window.close()
-                        }
-                    )
-                    .help("Skip this break")
+                        // Skip button
+                        CustomButton(
+                            title: "Skip",
+                            backgroundColor: Color.gray.opacity(0.8),
+                            action: {
+                                stopTimer()
+                                window.close()
+                            }
+                        )
+                        .help("Skip this break")
+                    }
                 }
+                .padding(40)
             }
-            .padding(40)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea(.all)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea(.all) // Ignore safe areas to extend to the edge of the screen
         .onAppear {
             startTimer()
         }

@@ -4,17 +4,17 @@ import SwiftUI
 class BreakOverlayWindow: NSWindow {
     init(reminder: BreakReminder = BreakReminder.shared) {
         let screen = NSScreen.main!
-        let rect = screen.frame
+        let screenFrame = screen.frame
 
         super.init(
-            contentRect: rect,
+            contentRect: screenFrame, // Use the full screen frame, not just visible frame
             styleMask: [.borderless],
             backing: .buffered,
             defer: false
         )
 
-        // Set level higher than regular windows but lower than system dialogs
-        self.level = .floating
+        // Set highest possible level to appear above everything
+        self.level = .screenSaver // Higher than statusBar, will cover everything
         
         // Configure window appearance
         self.isOpaque = false
@@ -23,7 +23,14 @@ class BreakOverlayWindow: NSWindow {
         
         // Configure window behavior
         self.ignoresMouseEvents = false
-        self.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        // Set collection behavior to cover full screen
+        self.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .fullScreenPrimary]
+        
+        // Ensure the window covers the entire screen including menu bar and dock
+        self.setFrame(screenFrame, display: true)
+        
+        // Set the presentation options to hide the menu bar
+        NSApplication.shared.presentationOptions.insert(.autoHideMenuBar)
         
         // Configure accessibility
         self.title = "Break Reminder" // For accessibility
@@ -38,6 +45,13 @@ class BreakOverlayWindow: NSWindow {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.makeKeyAndOrderFront(nil)
         }
+    }
+    
+    // Restore presentation options when window is closed
+    override func close() {
+        // Reset presentation options to default
+        NSApplication.shared.presentationOptions.remove(.autoHideMenuBar)
+        super.close()
     }
     
     // Override to allow becoming key window
