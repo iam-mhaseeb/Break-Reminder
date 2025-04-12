@@ -4,6 +4,10 @@ struct BreakOverlayView: View {
     let window: NSWindow
     let reminder: BreakReminder
     
+    // Timer state variables
+    @State private var remainingSeconds = 60 // 1 minute countdown
+    @State private var timer: Timer? = nil
+    
     var body: some View {
         ZStack {
             Color.black.opacity(0.7)
@@ -19,12 +23,30 @@ struct BreakOverlayView: View {
                     .font(.headline)
                     .foregroundColor(.white.opacity(0.9))
                 
+                // Countdown timer display
+                VStack(spacing: 5) {
+                    Text("\(formatTime(remainingSeconds))")
+                        .font(.system(size: 48, weight: .bold, design: .monospaced))
+                        .foregroundColor(.white)
+                    
+                    Text("Break will end automatically")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                .padding(.vertical, 10)
+                
+                // Progress bar
+                ProgressBar(progress: Double(60 - remainingSeconds) / 60.0)
+                    .frame(height: 8)
+                    .padding(.horizontal, 40)
+                
                 HStack(spacing: 20) {
                     // Snooze button
                     CustomButton(
                         title: "Snooze 5 min",
                         backgroundColor: Color.blue.opacity(0.8),
                         action: {
+                            stopTimer()
                             reminder.snooze()
                             window.close()
                         }
@@ -36,6 +58,7 @@ struct BreakOverlayView: View {
                         title: "Skip",
                         backgroundColor: Color.gray.opacity(0.8),
                         action: {
+                            stopTimer()
                             window.close()
                         }
                     )
@@ -43,10 +66,60 @@ struct BreakOverlayView: View {
                 }
             }
             .padding(40)
-            .background(Color.black.opacity(0.5))
-            .cornerRadius(20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            startTimer()
+        }
+        .onDisappear {
+            stopTimer()
+        }
+    }
+    
+    // Start the countdown timer
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if remainingSeconds > 0 {
+                remainingSeconds -= 1
+            } else {
+                stopTimer()
+                window.close()
+            }
+        }
+    }
+    
+    // Stop and invalidate the timer
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    // Format seconds into MM:SS
+    private func formatTime(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+}
+
+// Progress bar for visual timer representation
+struct ProgressBar: View {
+    var progress: Double // 0.0 to 1.0
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .foregroundColor(Color.white.opacity(0.2))
+                    .cornerRadius(5)
+                
+                Rectangle()
+                    .frame(width: geometry.size.width * CGFloat(progress))
+                    .foregroundColor(Color.green.opacity(0.8))
+                    .cornerRadius(5)
+                    .animation(.linear, value: progress)
+            }
+        }
     }
 }
 
