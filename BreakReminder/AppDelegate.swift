@@ -43,7 +43,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = statusItem?.button {
-            button.image = NSImage(systemSymbolName: "eye", accessibilityDescription: "Break Reminder")
+            if let iconImage = NSImage(named: "icon") ?? NSImage(contentsOfFile: Bundle.main.path(forResource: "icon", ofType: "png") ?? "") {
+                // Resize the image to fit in the menu bar
+                iconImage.size = NSSize(width: 18, height: 18)
+                button.image = iconImage
+            } else {
+                // Fallback to system symbol if custom icon can't be loaded
+                button.image = NSImage(systemSymbolName: "eye", accessibilityDescription: "Break Reminder")
+            }
         }
 
         let menu = NSMenu()
@@ -111,7 +118,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // Configure the window
             aboutWindow = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 380, height: 350),
+                contentRect: NSRect(x: 0, y: 0, width: 400, height: 450),
                 styleMask: [.titled, .closable],
                 backing: .buffered,
                 defer: false
