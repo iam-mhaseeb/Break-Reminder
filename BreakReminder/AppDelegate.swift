@@ -5,6 +5,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     private var reminder: BreakReminder?
     private var preferencesWindow: NSWindow?
+    private var aboutWindow: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Require macOS 13 or newer
@@ -49,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: "Take a Break Now", action: #selector(takeBreakNow), keyEquivalent: "b"))
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(openPreferences), keyEquivalent: ","))
+        menu.addItem(NSMenuItem(title: "About Break Reminder", action: #selector(openAbout), keyEquivalent: ""))
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApp.terminate), keyEquivalent: "q"))
 
@@ -96,6 +98,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func preferencesWindowWillClose(notification: Notification) {
+        // Optional: Handle window close event if needed
+    }
+    
+    @objc func openAbout() {
+        // Create and show about window if it doesn't exist
+        if aboutWindow == nil {
+            let contentView = AboutView()
+            
+            // Create a hosting controller for our SwiftUI view
+            let hostingController = NSHostingController(rootView: contentView)
+            
+            // Configure the window
+            aboutWindow = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 380, height: 350),
+                styleMask: [.titled, .closable],
+                backing: .buffered,
+                defer: false
+            )
+            
+            aboutWindow?.title = "About Break Reminder"
+            aboutWindow?.contentViewController = hostingController
+            aboutWindow?.center()
+            aboutWindow?.isReleasedWhenClosed = false
+            
+            // Create notification observer for when the window is closed
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(aboutWindowWillClose),
+                name: NSWindow.willCloseNotification,
+                object: aboutWindow
+            )
+        }
+        
+        // Show and activate window
+        aboutWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    
+    @objc func aboutWindowWillClose(notification: Notification) {
         // Optional: Handle window close event if needed
     }
     
