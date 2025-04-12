@@ -43,12 +43,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = statusItem?.button {
-            if let iconImage = NSImage(named: "icon") ?? NSImage(contentsOfFile: Bundle.main.path(forResource: "icon", ofType: "png") ?? "") {
+            // First try to load from app icon assets
+            if let iconImage = NSImage(named: "AppIcon") {
                 // Resize the image to fit in the menu bar
                 iconImage.size = NSSize(width: 18, height: 18)
                 button.image = iconImage
-            } else {
-                // Fallback to system symbol if custom icon can't be loaded
+            } 
+            // Then try to load from named assets
+            else if let iconImage = NSImage(named: "icon") {
+                iconImage.size = NSSize(width: 18, height: 18)
+                button.image = iconImage
+            }
+            // Finally try loading from bundle resources
+            else if let iconPath = Bundle.main.path(forResource: "icon", ofType: "png"),
+                    let iconImage = NSImage(contentsOfFile: iconPath) {
+                iconImage.size = NSSize(width: 18, height: 18)
+                button.image = iconImage
+            }
+            // Fallback to system symbol if custom icon can't be loaded
+            else {
                 button.image = NSImage(systemSymbolName: "eye", accessibilityDescription: "Break Reminder")
             }
         }
