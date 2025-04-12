@@ -55,31 +55,12 @@ struct PreferencesView: View {
                 }
                 
                 Spacer()
-                
-                Button("Notification Settings...") {
-                    openSystemNotificationSettings()
-                }
-                .help("Open system notification settings for this app")
             }
         }
         .padding()
         .frame(width: 350)
         .onAppear {
             interval = reminder.interval / 60
-        }
-    }
-    
-    private func openSystemNotificationSettings() {
-        if #available(macOS 13.0, *) {
-            let bundleIdentifier = Bundle.main.bundleIdentifier ?? "com.yourcompany.BreakReminder"
-            
-            // Try to open the notification settings for this app
-            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.notifications?\(bundleIdentifier)") {
-                NSWorkspace.shared.open(url)
-            } else {
-                // Fallback to general settings
-                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:")!)
-            }
         }
     }
 }
