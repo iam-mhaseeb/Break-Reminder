@@ -7,6 +7,9 @@ class BreakReminder: ObservableObject {
     private var timer: Timer?
     @Published var interval: TimeInterval
     
+    // Keep track of active overlay window
+    private var overlayWindow: BreakOverlayWindow?
+    
     init() {
         // Default to 20 minutes (1200 seconds) if no value is stored
         let storedInterval = UserDefaults.standard.double(forKey: "breakInterval")
@@ -45,8 +48,21 @@ class BreakReminder: ObservableObject {
     }
 
     func showOverlay() {
-        DispatchQueue.main.async {
-            _ = BreakOverlayWindow(reminder: self)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            // Check if there's already an active overlay window
+            if let existingWindow = self.overlayWindow, existingWindow.isVisible {
+                // Bring existing window to front instead of creating a new one
+                existingWindow.makeKeyAndOrderFront(nil)
+                return
+            }
+            
+            // Close any existing window first
+            self.overlayWindow?.close()
+            
+            // Create a new window
+            self.overlayWindow = BreakOverlayWindow(reminder: self)
         }
     }
 }

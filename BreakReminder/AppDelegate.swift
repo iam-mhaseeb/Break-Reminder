@@ -34,6 +34,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Set up the menu bar item
         setupStatusItem()
+        
+        // Register for activation notifications - helps with handling focus issues
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationDidBecomeActive),
+            name: NSApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+    
+    @objc func applicationDidBecomeActive(_ notification: Notification) {
+        // When app becomes active, if there's an overlay window visible,
+        // reapply the presentation options to ensure menu bar and dock stay hidden
+        for window in NSApp.windows {
+            if let breakWindow = window as? BreakOverlayWindow, breakWindow.isVisible {
+                // Force the window to the front and reapply key status
+                breakWindow.makeKeyAndOrderFront(nil)
+                // Use consistent presentation options (no mixed auto/non-auto options)
+                NSApplication.shared.presentationOptions = [.hideMenuBar, .hideDock]
+                break
+            }
+        }
     }
     
     func applicationWillTerminate(_ notification: Notification) {
