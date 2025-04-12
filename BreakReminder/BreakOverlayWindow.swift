@@ -29,8 +29,8 @@ class BreakOverlayWindow: NSWindow {
         // Ensure the window covers the entire screen including menu bar and dock
         self.setFrame(screenFrame, display: true)
         
-        // Set the presentation options to hide the menu bar
-        NSApplication.shared.presentationOptions.insert(.autoHideMenuBar)
+        // Set the presentation options to hide both menu bar and dock
+        NSApplication.shared.presentationOptions.insert([.autoHideMenuBar, .autoHideDock])
         
         // Configure accessibility
         self.title = "Break Reminder" // For accessibility
@@ -50,7 +50,7 @@ class BreakOverlayWindow: NSWindow {
     // Restore presentation options when window is closed
     override func close() {
         // Reset presentation options to default
-        NSApplication.shared.presentationOptions.remove(.autoHideMenuBar)
+        NSApplication.shared.presentationOptions.remove([.autoHideMenuBar, .autoHideDock])
         super.close()
     }
     

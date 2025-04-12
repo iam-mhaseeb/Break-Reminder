@@ -11,10 +11,12 @@ struct BreakOverlayView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
+                // Black background covering entire screen
                 Color.black.opacity(0.7)
                     .ignoresSafeArea(.all)
                     .edgesIgnoringSafeArea(.all)
                     .frame(width: geometry.size.width, height: geometry.size.height)
+                    .position(x: geometry.size.width/2, y: geometry.size.height/2)
 
                 VStack(spacing: 30) {
                     Text("Time to take a break 👀")
@@ -69,7 +71,11 @@ struct BreakOverlayView: View {
                 }
                 .padding(40)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(
+                width: geometry.size.width,
+                height: geometry.size.height,
+                alignment: .center
+            )
             .ignoresSafeArea(.all)
         }
         .ignoresSafeArea(.all) // Ignore safe areas to extend to the edge of the screen
