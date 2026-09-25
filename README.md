@@ -145,6 +145,10 @@ Issues and pull requests are welcome. For a larger change, open an issue first s
 
 Questions and bug reports go in [Issues](https://github.com/iam-mhaseeb/Break-Reminder/issues). Include your macOS version and what you expected to happen.
 
+## License
+
+Released under the [MIT License](LICENSE).
+
 ---
 
 <p align="center">
