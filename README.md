@@ -1,149 +1,154 @@
-# Break Reminder 👀
+<p align="center">
+  <img src="BreakReminder.iconset/icon_256x256.png" width="96" alt="Break Reminder icon">
+</p>
 
-A simple and elegant macOS menu bar application that reminds you to take regular breaks to reduce eye strain and improve productivity. Break Reminder follows the 20-20-20 rule and provides a beautiful full-screen overlay to encourage you to rest your eyes.
+<h1 align="center">Break Reminder</h1>
 
-## Features
+<p align="center">
+  A quiet macOS menu bar app that nudges you to rest your eyes.<br>
+  Built around the <strong>20-20-20 rule</strong>: every 20 minutes, look 20 feet away for 20 seconds.
+</p>
 
-- 🕐 **Customizable Break Intervals**: Set break reminders from 5 to 60 minutes (default: 20 minutes)
-- 🖥️ **Full-Screen Break Overlay**: Beautiful, immersive break screen that covers your entire display
-- ⏰ **Automatic Countdown**: 60-second countdown timer with visual progress bar
-- 🔄 **Snooze Functionality**: Snooze breaks for 5 minutes when you need more time
-- 📱 **Menu Bar Integration**: Clean menu bar icon with easy access to all features
-- ⚙️ **Preferences Panel**: Simple settings window to customize your break schedule
-- 🎯 **20-20-20 Rule Support**: Recommended 20-minute intervals for optimal eye health
-- 🔕 **Non-Intrusive**: Runs silently in the background without cluttering your dock
+<p align="center">
+  <a href="https://github.com/iam-mhaseeb/Break-Reminder/releases/latest/download/BreakReminder.zip">
+    <img alt="Download Break Reminder" src="https://img.shields.io/badge/Download-v1.0.0%20%C2%B7%20.zip-0A84FF?style=for-the-badge&logo=apple&logoColor=white">
+  </a>
+  &nbsp;
+  <a href="https://github.com/iam-mhaseeb/Break-Reminder/releases/latest">
+    <img alt="Latest release" src="https://img.shields.io/github/v/release/iam-mhaseeb/Break-Reminder?style=for-the-badge&label=Release&color=1c1c1e">
+  </a>
+</p>
 
-## Screenshots
-
-### Main Menu Bar Interface
-![Menu Bar Interface](Screenshots/1.png)
-*Clean menu bar integration with easy access to all features*
-
-### Preferences Window
-![Preferences](Screenshots/2.png)
-*Customize your break intervals and settings*
-
-### Break Overlay Screen
-![Break Overlay](Screenshots/3.png)
-*Beautiful full-screen break reminder with countdown timer*
-
-### About Window
-![About Window](Screenshots/4.png)
-*App information and version details*
-
-## Installation
-
-### Requirements
-- macOS 13.0 (Ventura) or newer
-- Xcode 14.0 or newer (for building from source)
-
-### Download
-1. Download the latest release from the [Releases](https://github.com/yourusername/BreakReminder/releases) page
-2. Open the downloaded `.dmg` file
-3. Drag Break Reminder to your Applications folder
-4. Launch the app from Applications or Spotlight
-
-### Building from Source
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/BreakReminder.git
-   cd BreakReminder
-   ```
-
-2. Open the project in Xcode:
-   ```bash
-   open BreakReminder.xcodeproj
-   ```
-
-3. Build and run the project (⌘+R) or create an archive for distribution
-
-## Usage
-
-### Getting Started
-1. Launch Break Reminder from your Applications folder
-2. The app will appear in your menu bar with an eye icon
-3. Break reminders will start automatically with the default 20-minute interval
-
-### Menu Bar Options
-- **Take a Break Now** (⌘+B): Immediately trigger a break overlay
-- **Preferences...** (⌘+,): Open settings to customize break intervals
-- **About Break Reminder**: View app information and version
-- **Quit** (⌘+Q): Exit the application
-
-### During a Break
-- The app displays a full-screen overlay with a 60-second countdown
-- **Snooze 5 min**: Postpone the break for 5 minutes
-- **Skip**: End the current break immediately
-- The break will automatically end after 60 seconds
-
-### Customizing Settings
-1. Click the menu bar icon and select "Preferences..."
-2. Adjust the break interval using the stepper (5-60 minutes)
-3. Click "Save" to apply your changes
-4. The app will restart the timer with your new settings
-
-## The 20-20-20 Rule
-
-Break Reminder is designed around the 20-20-20 rule, a widely recommended practice for reducing digital eye strain:
-
-- **Every 20 minutes**, look away from your screen
-- **Look at something 20 feet away** (or as far as possible)
-- **For at least 20 seconds**
-
-This simple practice helps prevent:
-- Digital eye strain
-- Dry eyes
-- Headaches
-- Neck and shoulder pain
-- Reduced productivity
-
-## Technical Details
-
-### Architecture
-- **SwiftUI**: Modern, declarative UI framework
-- **AppKit**: Native macOS integration for menu bar and window management
-- **UserDefaults**: Persistent storage for user preferences
-- **Timer**: Background scheduling for break reminders
-
-### Key Components
-- `BreakReminderApp.swift`: Main app entry point with MenuBarExtra
-- `BreakReminder.swift`: Core timer logic and state management
-- `BreakOverlayView.swift`: Full-screen break interface
-- `BreakOverlayWindow.swift`: Custom window management for overlay
-- `PreferencesView.swift`: Settings interface
-- `AppDelegate.swift`: Menu bar integration and window management
-
-### Permissions
-Break Reminder requests notification permissions to ensure break reminders work properly. You can manage these permissions in System Preferences > Notifications.
-
-## Contributing
-
-We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Inspired by the 20-20-20 rule for digital eye health
-- Built with SwiftUI and native macOS technologies
-- Icons and assets designed for optimal menu bar integration
-
-## Support
-
-If you encounter any issues or have suggestions for improvements, please:
-1. Check the [Issues](https://github.com/yourusername/BreakReminder/issues) page
-2. Create a new issue with detailed information about your problem
-3. Include your macOS version and any relevant error messages
+<p align="center">
+  <a href="https://github.com/iam-mhaseeb/Break-Reminder/releases/latest/download/BreakReminder.zip"><strong>Download for macOS</strong></a>
+  ·
+  <a href="https://github.com/iam-mhaseeb/Break-Reminder/releases/latest">All releases</a>
+  ·
+  <a href="#installation">Install</a>
+  ·
+  <a href="#usage">Usage</a>
+</p>
 
 ---
 
-**Take care of your eyes! 👀** Regular breaks are essential for maintaining healthy vision and productivity in our digital world.
+## Why it exists
+
+Staring at a screen for hours strains your eyes, dries them out, and makes it harder to stay focused. Break Reminder sits in the menu bar and, on a schedule you choose, covers the screen with a calm overlay so you actually look away.
+
+The default interval is **20 minutes**. Each break lasts **60 seconds**, then the overlay closes on its own.
+
+## Features
+
+| | |
+| --- | --- |
+| **Your schedule** | Reminders every 5–60 minutes, in 5-minute steps. Default is 20. |
+| **Full-screen overlay** | A dim screen, a countdown, and a progress bar. The menu bar and Dock stay out of the way. |
+| **Snooze or skip** | Postpone for 5 minutes, or dismiss the break if you are in the middle of something. |
+| **Take a break now** | Trigger an overlay immediately with **⌘B**. |
+| **Menu bar only** | No Dock icon. The app stays out of the way until it is time to rest. |
+| **Preferences** | Change the interval from the menu (**⌘,**) and the timer restarts with the new setting. |
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <strong>Menu bar</strong><br><br>
+      <img src="Screenshots/1.png" alt="Break Reminder menu in the macOS menu bar" width="420">
+    </td>
+    <td width="50%" align="center" valign="top">
+      <strong>Preferences</strong><br><br>
+      <img src="Screenshots/2.png" alt="Preferences window with a 20 minute interval" width="320">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <strong>Break overlay</strong><br><br>
+      <img src="Screenshots/3.png" alt="Full-screen break overlay with a one minute countdown" width="420">
+    </td>
+    <td align="center" valign="top">
+      <strong>About</strong><br><br>
+      <img src="Screenshots/4.png" alt="About window showing version 1.0" width="320">
+    </td>
+  </tr>
+</table>
+
+## Installation
+
+**Requires macOS 15.3 or later.**
+
+1. [Download BreakReminder.zip](https://github.com/iam-mhaseeb/Break-Reminder/releases/latest/download/BreakReminder.zip) from the [latest release](https://github.com/iam-mhaseeb/Break-Reminder/releases/latest).
+2. Unzip it and move **Break Reminder** into your Applications folder.
+3. Open it from Applications or Spotlight. It appears in the menu bar and starts the 20-minute timer.
+
+If macOS says the app cannot be opened because it is from an unidentified developer, right-click the app, choose **Open**, then confirm.
+
+### Build from source
+
+You need Xcode 16 or newer.
+
+```bash
+git clone https://github.com/iam-mhaseeb/Break-Reminder.git
+cd Break-Reminder
+open BreakReminder.xcodeproj
+```
+
+Build and run with **⌘R**.
+
+## Usage
+
+Launch the app. An eye icon stays in the menu bar. Breaks start on their own.
+
+| Menu item | Shortcut | What it does |
+| --- | --- | --- |
+| Take a Break Now | ⌘B | Shows the overlay immediately |
+| Preferences… | ⌘, | Sets how often reminders appear |
+| About Break Reminder | | Version and credits |
+| Quit | ⌘Q | Stops the timer and exits |
+
+During a break you can:
+
+- **Snooze 5 min** — close the overlay and ask again in five minutes
+- **Skip** — end this break and keep the normal schedule
+- Wait — the overlay closes itself after 60 seconds
+
+To change the interval, open Preferences, pick a value from 5 to 60 minutes, and click **Save**. The timer restarts with the new interval.
+
+## The 20-20-20 rule
+
+- Every **20 minutes**, look away from the screen.
+- Look at something about **20 feet** away.
+- Keep looking for at least **20 seconds**.
+
+Break Reminder uses a 60-second overlay so the pause is long enough to be useful, with 20 minutes as the recommended interval.
+
+## How it is built
+
+SwiftUI for the overlay, preferences, and about window. AppKit for the status item, the full-screen window, and hiding the Dock. Preferences are stored in `UserDefaults`.
+
+| File | Role |
+| --- | --- |
+| `BreakReminderApp.swift` | App entry point |
+| `AppDelegate.swift` | Menu bar, preferences, and about windows |
+| `BreakReminder.swift` | Timer, snooze, and saved interval |
+| `BreakOverlayView.swift` | Countdown and snooze / skip controls |
+| `BreakOverlayWindow.swift` | Full-screen window above the menu bar |
+| `PreferencesView.swift` | Interval stepper |
+
+## Contributing
+
+Issues and pull requests are welcome. For a larger change, open an issue first so the direction is clear.
+
+1. Fork the repository and create a branch.
+2. Make the change and commit it.
+3. Open a pull request against `main`.
+
+Questions and bug reports go in [Issues](https://github.com/iam-mhaseeb/Break-Reminder/issues). Include your macOS version and what you expected to happen.
+
+---
+
+<p align="center">
+  <a href="https://github.com/iam-mhaseeb/Break-Reminder/releases/latest/download/BreakReminder.zip"><strong>Download Break Reminder</strong></a>
+  <br>
+  <sub>Look away once in a while. Your eyes will thank you.</sub>
+</p>
