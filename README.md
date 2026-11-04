@@ -64,13 +64,9 @@ The default interval is **20 minutes**. Each break lasts **60 seconds** by defau
     </td>
   </tr>
   <tr>
-    <td align="center" valign="top">
+    <td colspan="2" align="center" valign="top">
       <strong>Break overlay</strong><br><br>
       <img src="Screenshots/3.png" alt="Full-screen break overlay with a one minute countdown" width="420">
-    </td>
-    <td align="center" valign="top">
-      <strong>About</strong><br><br>
-      <img src="Screenshots/4.png" alt="About window showing version 1.0" width="320">
     </td>
   </tr>
 </table>
