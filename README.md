@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="BreakReminder.iconset/icon_256x256.png" width="96" alt="Break Reminder icon">
+  <img src="BreakReminder/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="96" alt="Break Reminder icon">
 </p>
 
 <h1 align="center">Break Reminder</h1>
@@ -35,18 +35,20 @@
 
 Staring at a screen for hours strains your eyes, dries them out, and makes it harder to stay focused. Break Reminder sits in the menu bar and, on a schedule you choose, covers the screen with a calm overlay so you actually look away.
 
-The default interval is **20 minutes**. Each break lasts **60 seconds**, then the overlay closes on its own.
+The default interval is **20 minutes**. Each break lasts **60 seconds** by default, then the overlay closes on its own. You can change both in Preferences.
 
 ## Features
 
 | | |
 | --- | --- |
-| **Your schedule** | Reminders every 5–60 minutes, in 5-minute steps. Default is 20. |
-| **Full-screen overlay** | A dim screen, a countdown, and a progress bar. The menu bar and Dock stay out of the way. |
-| **Snooze or skip** | Postpone for 5 minutes, or dismiss the break if you are in the middle of something. |
+| **Your schedule** | Reminders every 5–60 minutes, in 5-minute steps. Default is 20. Break length is 20–300 seconds (default 60). |
+| **Full-screen overlay** | A dim screen, a countdown, and a progress bar on every display. The menu bar and Dock stay out of the way. |
+| **Snooze or skip** | Postpone for 5 minutes, or dismiss the break (button or **Esc**) if you are in the middle of something. |
 | **Take a break now** | Trigger an overlay immediately with **⌘B**. |
 | **Menu bar only** | No Dock icon. The app stays out of the way until it is time to rest. |
-| **Preferences** | Change the interval from the menu (**⌘,**) and the timer restarts with the new setting. |
+| **Preferences** | Change the interval and break length from the menu (**⌘,**); the timer restarts with the new settings. |
+| **Launch at login** | Optional, from Preferences. |
+| **Sleep aware** | The timer pauses while the Mac sleeps or the screen is locked and starts a fresh interval afterwards. |
 
 ## Screenshots
 
@@ -75,7 +77,7 @@ The default interval is **20 minutes**. Each break lasts **60 seconds**, then th
 
 ## Installation
 
-**Requires macOS 15.3 or later.**
+**Requires macOS 13 (Ventura) or later.**
 
 1. [Download BreakReminder.zip](https://github.com/iam-mhaseeb/Break-Reminder/releases/latest/download/BreakReminder.zip) from the [latest release](https://github.com/iam-mhaseeb/Break-Reminder/releases/latest).
 2. Unzip it and move **Break Reminder** into your Applications folder.
@@ -109,10 +111,10 @@ Launch the app. An eye icon stays in the menu bar. Breaks start on their own.
 During a break you can:
 
 - **Snooze 5 min** — close the overlay and ask again in five minutes
-- **Skip** — end this break and keep the normal schedule
-- Wait — the overlay closes itself after 60 seconds
+- **Skip** (or press **Esc**) — end this break; the next one comes after the normal interval
+- Wait — the overlay closes itself when the countdown ends (60 seconds by default)
 
-To change the interval, open Preferences, pick a value from 5 to 60 minutes, and click **Save**. The timer restarts with the new interval.
+To change the schedule, open Preferences, pick an interval (5–60 minutes) and a break length (20–300 seconds), and click **Save**. The timer restarts with the new settings. The next break is always counted from the end of the previous one.
 
 ## The 20-20-20 rule
 
@@ -120,20 +122,24 @@ To change the interval, open Preferences, pick a value from 5 to 60 minutes, and
 - Look at something about **20 feet** away.
 - Keep looking for at least **20 seconds**.
 
-Break Reminder uses a 60-second overlay so the pause is long enough to be useful, with 20 minutes as the recommended interval.
+Break Reminder uses a 60-second overlay by default so the pause is long enough to be useful, with 20 minutes as the recommended interval.
 
 ## How it is built
 
-SwiftUI for the overlay, preferences, and about window. AppKit for the status item, the full-screen window, and hiding the Dock. Preferences are stored in `UserDefaults`.
+SwiftUI for the overlay, preferences, and about window. AppKit for the app entry point, the status item, the full-screen windows, and hiding the Dock. Preferences are stored in `UserDefaults`.
 
 | File | Role |
 | --- | --- |
 | `BreakReminderApp.swift` | App entry point |
 | `AppDelegate.swift` | Menu bar, preferences, and about windows |
-| `BreakReminder.swift` | Timer, snooze, and saved interval |
+| `BreakReminder.swift` | Break scheduling, snooze, sleep / lock handling |
+| `BreakSettings.swift` | Setting keys, defaults and limits |
+| `BreakSession.swift` | Countdown shared by all overlay windows |
+| `BreakOverlayController.swift` | Creates and tears down the overlay on every screen |
+| `BreakOverlayWindow.swift` | Borderless window above the menu bar |
 | `BreakOverlayView.swift` | Countdown and snooze / skip controls |
-| `BreakOverlayWindow.swift` | Full-screen window above the menu bar |
-| `PreferencesView.swift` | Interval stepper |
+| `PreferencesView.swift` | Interval, break length and launch-at-login |
+| `LaunchAtLogin.swift` | `SMAppService` wrapper |
 
 ## Contributing
 
@@ -143,7 +149,11 @@ Issues and pull requests are welcome. For a larger change, open an issue first s
 2. Make the change and commit it.
 3. Open a pull request against `main`.
 
-Questions and bug reports go in [Issues](https://github.com/iam-mhaseeb/Break-Reminder/issues). Include your macOS version and what you expected to happen.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to run the tests. Questions and bug reports go in [Issues](https://github.com/iam-mhaseeb/Break-Reminder/issues). Include your macOS version and what you expected to happen.
+
+## Author
+
+Made by [Muhammad Haseeb](https://muhammadhaseeb.me) · [hello@muhammadhaseeb.me](mailto:hello@muhammadhaseeb.me)
 
 ## License
 
